@@ -12,6 +12,6 @@ record Location(int x, int y) {
   }
 
   Location backward(Direction direction) {
-    return forward(Direction.S);
+    return forward(direction.opposite());
   }
 }
