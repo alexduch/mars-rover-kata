@@ -1,8 +1,10 @@
 package io.github.alexduch.marsroverkata;
 
+import java.util.Arrays;
+
 class MarsRover {
 
-  private final Position currentPosition;
+  private Position currentPosition;
 
    MarsRover(Position initialPosition) {
     this.currentPosition = initialPosition;
@@ -12,6 +14,15 @@ class MarsRover {
     if (commands == null || commands.length == 0) {
       return currentPosition;
     }
-    return new Position(new Location(currentPosition.location().x(), currentPosition.location().y() + 1), currentPosition.direction());
+    Arrays.stream(commands).forEach(this::move);
+    return currentPosition;
+  }
+
+  private void move(Command command) {
+    currentPosition =
+        new Position(
+            new Location(
+                this.currentPosition.location().x(), this.currentPosition.location().y() + 1),
+            this.currentPosition.direction());
   }
 }
