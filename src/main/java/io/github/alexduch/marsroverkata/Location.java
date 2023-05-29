@@ -1,3 +1,13 @@
 package io.github.alexduch.marsroverkata;
 
-record Location(int x, int y) {}
+record Location(int x, int y) {
+
+  Location forward(Direction direction) {
+    return switch (direction) {
+      case N -> new Location(x, y + 1);
+      case E -> new Location(x + 1, y);
+      case S -> new Location(x, y - 1);
+      case W -> new Location(x - 1, y);
+    };
+  }
+}
