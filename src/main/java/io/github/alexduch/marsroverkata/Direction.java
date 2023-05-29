@@ -8,7 +8,12 @@ enum Direction {
       return W;
     }
   },
-  S,
+  S {
+    @Override
+    Direction opposite() {
+      return N;
+    }
+  },
   W;
 
   Direction opposite() {
