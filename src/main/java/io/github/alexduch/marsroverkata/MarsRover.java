@@ -22,6 +22,7 @@ class MarsRover {
     Location newLocation = switch(currentPosition.direction()) {
       case E -> new Location(this.currentPosition.location().x() + 1, this.currentPosition.location().y());
       case S -> new Location(this.currentPosition.location().x(), this.currentPosition.location().y() - 1);
+      case W -> new Location(this.currentPosition.location().x() - 1, this.currentPosition.location().y());
       default -> new Location(this.currentPosition.location().x(), this.currentPosition.location().y() + 1);
     };
     currentPosition = new Position(newLocation, this.currentPosition.direction());
