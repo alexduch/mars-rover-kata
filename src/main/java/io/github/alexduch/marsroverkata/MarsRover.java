@@ -22,7 +22,7 @@ class MarsRover {
     Location newLocation =
         switch (command) {
           case F -> currentPosition.location().forward(currentPosition.direction());
-          default -> currentPosition.location().backward(currentPosition.direction());
+          case B -> currentPosition.location().backward(currentPosition.direction());
         };
     currentPosition = new Position(newLocation, this.currentPosition.direction());
   }

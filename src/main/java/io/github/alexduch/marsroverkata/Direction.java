@@ -1,7 +1,12 @@
 package io.github.alexduch.marsroverkata;
 
 enum Direction {
-  N,
+  N {
+    @Override
+    Direction opposite() {
+      return S;
+    }
+  },
   E {
     @Override
     Direction opposite() {
@@ -14,9 +19,12 @@ enum Direction {
       return N;
     }
   },
-  W;
+  W {
+    @Override
+    Direction opposite() {
+      return E;
+    }
+  };
 
-  Direction opposite() {
-    return S;
-  }
+  abstract Direction opposite();
 }
