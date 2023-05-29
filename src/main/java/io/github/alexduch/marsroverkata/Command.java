@@ -1,3 +1,5 @@
 package io.github.alexduch.marsroverkata;
 
-enum Command {}
+enum Command {
+  F
+}
