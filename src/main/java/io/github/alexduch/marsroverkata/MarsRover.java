@@ -19,7 +19,11 @@ class MarsRover {
   }
 
   private void move(Command command) {
-    Location newLocation = currentPosition.location().forward(currentPosition.direction());
+    Location newLocation =
+        switch (command) {
+          case F -> currentPosition.location().forward(currentPosition.direction());
+          default -> currentPosition.location().backward(currentPosition.direction());
+        };
     currentPosition = new Position(newLocation, this.currentPosition.direction());
   }
 }

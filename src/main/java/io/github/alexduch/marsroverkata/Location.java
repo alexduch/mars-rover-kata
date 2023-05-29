@@ -10,4 +10,8 @@ record Location(int x, int y) {
       case W -> new Location(x - 1, y);
     };
   }
+
+  Location backward(Direction direction) {
+    return forward(Direction.S);
+  }
 }

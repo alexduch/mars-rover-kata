@@ -2,6 +2,7 @@ package io.github.alexduch.marsroverkata;
 
 import org.junit.jupiter.api.Test;
 
+import static io.github.alexduch.marsroverkata.Command.B;
 import static io.github.alexduch.marsroverkata.Command.F;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,5 +75,15 @@ class MarsRoverTest {
     Position newPosition = new MarsRover(initialPosition).go(commands);
 
     assertThat(newPosition).isEqualTo(new Position(new Location(-1, 0), Direction.W));
+  }
+
+  @Test
+  void goingBackwardWhenFacingNorth() {
+    Position initialPosition = new Position(new Location(0, 0), Direction.N);
+    Command[] commands = {B};
+
+    Position newPosition = new MarsRover(initialPosition).go(commands);
+
+    assertThat(newPosition).isEqualTo(new Position(new Location(0, -1), Direction.N));
   }
 }
