@@ -3,7 +3,7 @@ package io.github.alexduch.marsroverkata;
 record Location(int x, int y) {
 
   Location(int x, int y) {
-    this.x = x;
+    this.x = MarsMap.wrapOnEastWestAxis(x);
     this.y = MarsMap.wrapOnNorthSouthAxis(y);
   }
 

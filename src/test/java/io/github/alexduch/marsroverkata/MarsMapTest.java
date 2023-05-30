@@ -18,6 +18,14 @@ class MarsMapTest {
   }
 
   @Test
+  void wrapOnEastEdge() {
+    assertAll(
+        () -> assertThat(wrapOnEastWestAxis(12)).isEqualTo(1),
+        () -> assertThat(wrapOnEastWestAxis(24)).isEqualTo(2),
+        () -> assertThat(wrapOnEastWestAxis(55)).isZero());
+  }
+
+  @Test
   void wrapOnSouthEdge() {
     assertAll(
         () -> assertThat(wrapOnNorthSouthAxis(-12)).isEqualTo(10),
@@ -30,5 +38,8 @@ class MarsMapTest {
     assertAll(
         rangeClosed(SOUTH_EDGE, NORTH_EDGE)
             .mapToObj(i -> () -> assertThat(wrapOnNorthSouthAxis(i)).isEqualTo(i)));
+    assertAll(
+        rangeClosed(WEST_EDGE, EAST_EDGE)
+            .mapToObj(i -> () -> assertThat(wrapOnEastWestAxis(i)).isEqualTo(i)));
   }
 }
