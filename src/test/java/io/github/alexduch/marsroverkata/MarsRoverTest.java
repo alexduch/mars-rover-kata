@@ -104,4 +104,15 @@ class MarsRoverTest {
     assertThat(newPosition)
         .isEqualTo(new Position(new Location(MarsMap.WEST_EDGE + 1, 0), Direction.E));
   }
+
+  @Test
+  void wrapOnWestEdge() {
+    Position initialPosition = new Position(new Location(MarsMap.WEST_EDGE + 1, 0), Direction.E);
+    Command[] commands = {B, B, B};
+
+    Position newPosition = new MarsRover(initialPosition).go(commands);
+
+    assertThat(newPosition)
+        .isEqualTo(new Position(new Location(MarsMap.EAST_EDGE - 1, 0), Direction.E));
+  }
 }

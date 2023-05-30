@@ -22,6 +22,9 @@ final class MarsMap {
     while (x > EAST_EDGE) {
       x = x - (EAST_EDGE - WEST_EDGE + 1);
     }
+    while (x < WEST_EDGE) {
+      x = x + (EAST_EDGE - WEST_EDGE + 1);
+    }
     return x;
   }
 
