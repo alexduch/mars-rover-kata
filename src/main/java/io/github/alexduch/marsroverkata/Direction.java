@@ -6,6 +6,11 @@ enum Direction {
     Direction opposite() {
       return S;
     }
+
+    @Override
+    Direction left() {
+      return W;
+    }
   },
   E {
     @Override
@@ -34,11 +39,14 @@ enum Direction {
     Direction opposite() {
       return E;
     }
+
+    @Override
+    Direction left() {
+      return S;
+    }
   };
 
   abstract Direction opposite();
 
-  Direction left() {
-    return W;
-  }
+  abstract Direction left();
 }
