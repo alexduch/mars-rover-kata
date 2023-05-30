@@ -8,13 +8,25 @@ final class MarsMap {
   private MarsMap() {}
 
   static int wrapOnNorthSouthAxis(int y) {
-    int wrapped = y;
-    while (wrapped > NORTH_EDGE) {
-      wrapped = wrapped - (NORTH_EDGE - SOUTH_EDGE + 1);
+    if (y > NORTH_EDGE) {
+      return wrapOnNorthEdge(y);
+    } else if (y < SOUTH_EDGE) {
+      return wrapOnSouthEdge(y);
     }
-    while (wrapped < SOUTH_EDGE) {
-      wrapped = wrapped + (NORTH_EDGE - SOUTH_EDGE + 1);
+    return y;
+  }
+
+  private static int wrapOnNorthEdge(int y) {
+    while (y > NORTH_EDGE) {
+      y = y - (NORTH_EDGE - SOUTH_EDGE + 1);
     }
-    return wrapped;
+    return y;
+  }
+
+  private static int wrapOnSouthEdge(int y) {
+    while (y < SOUTH_EDGE) {
+      y = y + (NORTH_EDGE - SOUTH_EDGE + 1);
+    }
+    return y;
   }
 }
