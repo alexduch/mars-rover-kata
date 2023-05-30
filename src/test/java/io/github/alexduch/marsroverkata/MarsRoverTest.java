@@ -4,6 +4,8 @@ import static io.github.alexduch.marsroverkata.Command.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class MarsRoverTest {
 
@@ -26,173 +28,47 @@ class MarsRoverTest {
     assertThat(newPosition).isEqualTo(initialPosition);
   }
 
-  @Test
-  void goingForwardWhenFacingNorth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.N);
+  @ParameterizedTest(name = "Going forward in direction {0}")
+  @CsvSource({"N,4,5", "E,5,4", "S,4,3", "W,3,4"})
+  void goingForward(Direction direction, int expectedX, int expectedY) {
+    Position initialPosition = new Position(new Location(4, 4), direction);
     Command[] commands = {F};
 
     Position newPosition = new MarsRover(initialPosition).go(commands);
 
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 1), Direction.N));
+    assertThat(newPosition).isEqualTo(new Position(new Location(expectedX, expectedY), direction));
   }
 
-  @Test
-  void goingFurtherWhenFacingNorth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.N);
+  @ParameterizedTest(name = "Going further in direction {0}")
+  @CsvSource({"N,4,7", "E,7,4", "S,4,1", "W,1,4"})
+  void goingFurther(Direction direction, int expectedX, int expectedY) {
+    Position initialPosition = new Position(new Location(4, 4), direction);
     Command[] commands = {F, F, F};
 
     Position newPosition = new MarsRover(initialPosition).go(commands);
 
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 3), Direction.N));
+    assertThat(newPosition).isEqualTo(new Position(new Location(expectedX, expectedY), direction));
   }
 
-  @Test
-  void goingForwardWhenFacingEast() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.E);
-    Command[] commands = {F};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(1, 0), Direction.E));
-  }
-
-  @Test
-  void goingForwardWhenFacingSouth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.S);
-    Command[] commands = {F};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, -1), Direction.S));
-  }
-
-  @Test
-  void goingForwardWhenFacingWest() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.W);
-    Command[] commands = {F};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(-1, 0), Direction.W));
-  }
-
-  @Test
-  void goingBackwardWhenFacingNorth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.N);
+  @ParameterizedTest(name = "Going backward in direction {0}")
+  @CsvSource({"N,4,3", "E,3,4", "S,4,5", "W,5,4"})
+  void goingBackward(Direction direction, int expectedX, int expectedY) {
+    Position initialPosition = new Position(new Location(4, 4), direction);
     Command[] commands = {B};
 
     Position newPosition = new MarsRover(initialPosition).go(commands);
 
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, -1), Direction.N));
+    assertThat(newPosition).isEqualTo(new Position(new Location(expectedX, expectedY), direction));
   }
 
-  @Test
-  void goingBackwardWhenFacingEast() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.E);
-    Command[] commands = {B};
+  @ParameterizedTest(name = "Turning {0} when facing {1}")
+  @CsvSource({"L,N,W", "L,E,N", "L,S,E", "L,W,S", "R,N,E", "R,E,S", "R,S,W", "R,W,N"})
+  void turning(Command command, Direction initialDirection, Direction expectedDirection) {
+    Position initialPosition = new Position(new Location(0, 0), initialDirection);
+    Command[] commands = {command};
 
     Position newPosition = new MarsRover(initialPosition).go(commands);
 
-    assertThat(newPosition).isEqualTo(new Position(new Location(-1, 0), Direction.E));
-  }
-
-  @Test
-  void goingBackwardWhenFacingSouth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.S);
-    Command[] commands = {B};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 1), Direction.S));
-  }
-
-  @Test
-  void goingBackwardWhenFacingWest() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.W);
-    Command[] commands = {B};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(1, 0), Direction.W));
-  }
-
-  @Test
-  void turningLeftWhenFacingNorth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.N);
-    Command[] commands = {L};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.W));
-  }
-
-  @Test
-  void turningLeftWhenFacingEast() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.E);
-    Command[] commands = {L};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.N));
-  }
-
-  @Test
-  void turningLeftWhenFacingSouth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.S);
-    Command[] commands = {L};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.E));
-  }
-
-  @Test
-  void turningLeftWhenFacingWest() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.W);
-    Command[] commands = {L};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.S));
-  }
-
-  @Test
-  void turningRightWhenFacingNorth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.N);
-    Command[] commands = {R};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.E));
-  }
-
-  @Test
-  void turningRightWhenFacingEast() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.E);
-    Command[] commands = {R};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.S));
-  }
-
-  @Test
-  void turningRightWhenFacingSouth() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.S);
-    Command[] commands = {R};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.W));
-  }
-
-  @Test
-  void turningRightWhenFacingWest() {
-    Position initialPosition = new Position(new Location(0, 0), Direction.W);
-    Command[] commands = {R};
-
-    Position newPosition = new MarsRover(initialPosition).go(commands);
-
-    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.N));
+    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), expectedDirection));
   }
 }
