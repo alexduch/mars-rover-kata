@@ -38,6 +38,11 @@ enum Direction {
     Direction left() {
       return E;
     }
+
+    @Override
+    Direction right() {
+      return W;
+    }
   },
   W {
     @Override
