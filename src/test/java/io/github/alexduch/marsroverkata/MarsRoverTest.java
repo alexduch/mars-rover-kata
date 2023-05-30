@@ -1,10 +1,9 @@
 package io.github.alexduch.marsroverkata;
 
-import org.junit.jupiter.api.Test;
-
-import static io.github.alexduch.marsroverkata.Command.B;
-import static io.github.alexduch.marsroverkata.Command.F;
+import static io.github.alexduch.marsroverkata.Command.*;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 class MarsRoverTest {
 
@@ -115,5 +114,15 @@ class MarsRoverTest {
     Position newPosition = new MarsRover(initialPosition).go(commands);
 
     assertThat(newPosition).isEqualTo(new Position(new Location(1, 0), Direction.W));
+  }
+
+  @Test
+  void turningLeftWhenFacingNorth() {
+    Position initialPosition = new Position(new Location(0, 0), Direction.N);
+    Command[] commands = {L};
+
+    Position newPosition = new MarsRover(initialPosition).go(commands);
+
+    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.W));
   }
 }

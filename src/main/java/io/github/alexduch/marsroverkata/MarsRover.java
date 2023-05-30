@@ -23,6 +23,7 @@ class MarsRover {
         switch (command) {
           case F -> currentPosition.forward();
           case B -> currentPosition.backward();
+          case L -> currentPosition.left();
         };
   }
 }
