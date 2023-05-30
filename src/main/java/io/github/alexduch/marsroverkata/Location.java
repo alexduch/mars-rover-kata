@@ -2,6 +2,11 @@ package io.github.alexduch.marsroverkata;
 
 record Location(int x, int y) {
 
+  Location(int x, int y) {
+    this.x = x;
+    this.y = MarsMap.wrapOnNorthSouthAxis(y);
+  }
+
   Location forward(Direction direction) {
     return switch (direction) {
       case N -> new Location(x, y + 1);

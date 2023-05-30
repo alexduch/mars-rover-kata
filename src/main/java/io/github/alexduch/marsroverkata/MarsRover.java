@@ -6,11 +6,11 @@ class MarsRover {
 
   private Position currentPosition;
 
-   MarsRover(Position initialPosition) {
+  MarsRover(Position initialPosition) {
     this.currentPosition = initialPosition;
   }
 
-   Position go(Command[] commands) {
+  Position go(Command[] commands) {
     if (commands == null || commands.length == 0) {
       return currentPosition;
     }
