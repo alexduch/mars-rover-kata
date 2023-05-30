@@ -19,26 +19,43 @@ final class MarsMap {
   }
 
   static int wrapOnEastWestAxis(int x) {
-    while (x > EAST_EDGE) {
-      x = x - (EAST_EDGE - WEST_EDGE + 1);
-    }
-    while (x < WEST_EDGE) {
-      x = x + (EAST_EDGE - WEST_EDGE + 1);
+    if (x > EAST_EDGE) {
+      return wrapOnEastEdge(x);
+    } else if (x < WEST_EDGE) {
+      return wrapOnWestEdge(x);
     }
     return x;
   }
 
   private static int wrapOnNorthEdge(int y) {
-    while (y > NORTH_EDGE) {
-      y = y - (NORTH_EDGE - SOUTH_EDGE + 1);
-    }
-    return y;
+    return wrapOnHigherLimit(y, SOUTH_EDGE, NORTH_EDGE);
   }
 
   private static int wrapOnSouthEdge(int y) {
-    while (y < SOUTH_EDGE) {
-      y = y + (NORTH_EDGE - SOUTH_EDGE + 1);
+    return wrapOnLowerLimit(y, SOUTH_EDGE, NORTH_EDGE);
+  }
+
+  private static int wrapOnEastEdge(int x) {
+    return wrapOnHigherLimit(x, WEST_EDGE, EAST_EDGE);
+  }
+
+  private static int wrapOnWestEdge(int x) {
+    return wrapOnLowerLimit(x, WEST_EDGE, EAST_EDGE);
+  }
+
+  private static int wrapOnHigherLimit(int coordinate, int lowerLimit, int higherLimit) {
+    int range = higherLimit - lowerLimit + 1;
+    while (coordinate > higherLimit) {
+      coordinate = coordinate - range;
     }
-    return y;
+    return coordinate;
+  }
+
+  private static int wrapOnLowerLimit(int coordinate, int lowerLimit, int higherLimit) {
+    int range = higherLimit - lowerLimit + 1;
+    while (coordinate < lowerLimit) {
+      coordinate = coordinate + range;
+    }
+    return coordinate;
   }
 }
