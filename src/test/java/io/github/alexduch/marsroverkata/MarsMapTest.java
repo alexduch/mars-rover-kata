@@ -18,6 +18,14 @@ class MarsMapTest {
   }
 
   @Test
+  void wrapOnSouthEdge() {
+    assertAll(
+        () -> assertThat(wrapOnNorthSouthAxis(-12)).isEqualTo(10),
+        () -> assertThat(wrapOnNorthSouthAxis(-24)).isEqualTo(9),
+        () -> assertThat(wrapOnNorthSouthAxis(-55)).isZero());
+  }
+
+  @Test
   void noWrapNeeded() {
     assertAll(
         rangeClosed(SOUTH_EDGE, NORTH_EDGE)

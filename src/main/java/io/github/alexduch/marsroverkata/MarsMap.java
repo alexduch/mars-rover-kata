@@ -12,6 +12,9 @@ final class MarsMap {
     while (wrapped > NORTH_EDGE) {
       wrapped = wrapped - (NORTH_EDGE - SOUTH_EDGE + 1);
     }
+    while (wrapped < SOUTH_EDGE) {
+      wrapped = wrapped + (NORTH_EDGE - SOUTH_EDGE + 1);
+    }
     return wrapped;
   }
 }
