@@ -165,4 +165,14 @@ class MarsRoverTest {
 
     assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.E));
   }
+
+  @Test
+  void turningRightWhenFacingEast() {
+    Position initialPosition = new Position(new Location(0, 0), Direction.E);
+    Command[] commands = {R};
+
+    Position newPosition = new MarsRover(initialPosition).go(commands);
+
+    assertThat(newPosition).isEqualTo(new Position(new Location(0, 0), Direction.S));
+  }
 }
