@@ -13,4 +13,8 @@ record Position(Location location, Direction direction) {
   Position left() {
     return new Position(location, direction.left());
   }
+
+  Position right() {
+    return new Position(location, direction.right());
+  }
 }

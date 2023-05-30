@@ -24,6 +24,7 @@ class MarsRover {
           case F -> currentPosition.forward();
           case B -> currentPosition.backward();
           case L -> currentPosition.left();
+          case R -> currentPosition.right();
         };
   }
 }

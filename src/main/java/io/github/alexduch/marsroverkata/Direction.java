@@ -49,4 +49,8 @@ enum Direction {
   abstract Direction opposite();
 
   abstract Direction left();
+
+  Direction right() {
+    return E;
+  }
 }

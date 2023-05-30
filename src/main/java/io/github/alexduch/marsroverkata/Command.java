@@ -1,5 +1,8 @@
 package io.github.alexduch.marsroverkata;
 
 enum Command {
-  F, B, L
+  F,
+  B,
+  L,
+  R
 }
